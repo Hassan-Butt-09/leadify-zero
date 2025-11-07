@@ -1,7 +1,11 @@
-'use client'  // <--- MUST be the very first line
+'use client'
 
 import { useState } from 'react'
 import { supabase } from '../../lib/supabaseClient'
+import type { Database } from '../../types/supabase'
+
+type LeadRow = Database['public']['Tables']['leads']['Row']
+type LeadInsert = Database['public']['Tables']['leads']['Insert']
 
 export default function LeadsPage() {
   const [name, setName] = useState('')
@@ -9,21 +13,19 @@ export default function LeadsPage() {
   const [message, setMessage] = useState('')
 
   const handleAddLead = async () => {
-    const { data, error } = await supabase
-      .from('leads')
-      .insert([{ name, email }])
-      .select() // returns inserted row(s)
-
-    if (error) {
-      setMessage('Error: ' + error.message)
-    } else if (data && data.length > 0) {
-      setMessage('Lead added with ID: ' + data[0].id)
-      setName('')
-      setEmail('')
-    } else {
-      setMessage('Lead added successfully!')
-      setName('')
-      setEmail('')
+    try {
+      const { data, error } = await supabase
+        .from<LeadRow, LeadInsert>('leads')
+        .insert([{ name, email }])
+        .select()
+      if (error) throw error
+      if (data && data.length > 0) {
+        setMessage('Lead added with ID: ' + data[0].id)
+        setName('')
+        setEmail('')
+      }
+    } catch (err: any) {
+      setMessage('Error: ' + err.message)
     }
   }
 
