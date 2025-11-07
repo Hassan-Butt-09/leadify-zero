@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from 'react'
 import { supabase } from '../../lib/supabaseClient'
 
@@ -7,13 +9,20 @@ export default function LeadsPage() {
   const [message, setMessage] = useState('')
 
   const handleAddLead = async () => {
+    // No generics, TypeScript will infer types
     const { data, error } = await supabase
       .from('leads')
       .insert([{ name, email }])
+      .select() // ensures inserted row is returned
+
     if (error) {
       setMessage('Error: ' + error.message)
-    } else {
+    } else if (data && data.length > 0) {
       setMessage('Lead added with ID: ' + data[0].id)
+      setName('')
+      setEmail('')
+    } else {
+      setMessage('Lead added successfully!')
       setName('')
       setEmail('')
     }
