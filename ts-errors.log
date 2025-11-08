@@ -1,0 +1,23 @@
+[96mapp/leads/page.tsx[0m:[93m17[0m:[93m22[0m - [91merror[0m[90m TS2344: [0mType '{ name: string; email: string; }' does not satisfy the constraint 'never'.
+
+[7m17[0m       .from<'leads', LeadInsert>('leads')
+[7m  [0m [91m                     ~~~~~~~~~~[0m
+
+[96mapp/leads/page.tsx[0m:[93m18[0m:[93m8[0m - [91merror[0m[90m TS2769: [0mNo overload matches this call.
+  Overload 1 of 2, '(values: never, options?: { count?: "exact" | "planned" | "estimated" | undefined; } | undefined): PostgrestFilterBuilder<{ PostgrestVersion: "12"; }, never, unknown, null, "leads", unknown, "POST">', gave the following error.
+    Argument of type '{ name: string; email: string; }[]' is not assignable to parameter of type 'never'.
+  Overload 2 of 2, '(values: never[], options?: { count?: "exact" | "planned" | "estimated" | undefined; defaultToNull?: boolean | undefined; } | undefined): PostgrestFilterBuilder<{ PostgrestVersion: "12"; }, never, unknown, null, "leads", unknown, "POST">', gave the following error.
+    Type '{ name: string; email: string; }' is not assignable to type 'never'.
+
+[7m18[0m       .insert([{ name, email }])
+[7m  [0m [91m       ~~~~~~[0m
+
+
+[96mapp/leads/page.tsx[0m:[93m27[0m:[93m51[0m - [91merror[0m[90m TS2339: [0mProperty 'id' does not exist on type 'SelectQueryError<"Invalid Relationships cannot infer result type">'.
+
+[7m27[0m       setMessage('Lead added with ID: ' + data[0].id)
+[7m  [0m [91m                                                  ~~[0m
+
+
+Found 3 errors in the same file, starting at: app/leads/page.tsx[90m:17[0m
+

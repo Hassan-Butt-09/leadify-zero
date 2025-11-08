@@ -1,13 +1,3 @@
-export type Database = {
-  public: {
-    Tables: {
-      leads: {
-        Row: { id: number; name: string; email: string }
-        Insert: { name: string; email: string }
-        Update: { name?: string; email?: string }
-      }
-    }
-    Views: {}
-    Functions: {}
-  }
-}
+Need to install the following packages:
+supabase@2.54.11
+Ok to proceed? (y) 
